@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subnest - Abonelik ve Fatura Yönetim Uygulaması</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--gray-100);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: 1px solid var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .hero {
+            padding: 5rem 0;
+            background-color: white;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .hero-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .hero-text p {
+            font-size: 1.125rem;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+        }
+        
+        .hero-image {
+            flex: 1;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .features {
+            padding: 5rem 0;
+            background-color: var(--gray-100);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            font-size: 1.125rem;
+            color: var(--secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-light);
+            color: white;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .feature-card p {
+            color: var(--secondary);
+        }
+        
+        .platforms {
+            padding: 5rem 0;
+            background-color: white;
+        }
+        
+        .platforms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+        
+        .platform-card {
+            padding: 2rem;
+            border-radius: 0.5rem;
+            background-color: var(--gray-100);
+            transition: transform 0.3s;
+        }
+        
+        .platform-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .platform-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .platform-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .platform-card p {
+            color: var(--secondary);
+            font-size: 0.875rem;
+        }
+        
+        .cta {
+            padding: 5rem 0;
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta p {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-light {
+            background-color: white;
+            color: var(--primary);
+            border: 1px solid white;
+        }
+        
+        .btn-light:hover {
+            background-color: transparent;
+            color: white;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: var(--gray-300);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--secondary);
+            text-align: center;
+            color: var(--gray-300);
+            font-size: 0.875rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjU2M2ViIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9ImZlYXRoZXIgZmVhdGhlci1ib3giPjxwYXRoIGQ9Ik0yMSAxNlY4YTIgMiAwIDAgMC0xLTEuNzNsLTctNGEyIDIgMCAwIDAtMiAwbC03IDRBMiAyIDAgMCAwIDMgOHY4YTIgMiAwIDAgMCAxIDEuNzNsNyA0YTIgMiAwIDAgMCAyIDBsNy00QTIgMiAwIDAgMCAyMSAxNnoiPjwvcGF0aD48cG9seWxpbmUgcG9pbnRzPSIzLjI3IDYuOTYgMTIgMTIuMDEgMjAuNzMgNi45NiI+PC9wb2x5bGluZT48bGluZSB4MT0iMTIiIHkxPSIyMi4wOCIgeDI9IjEyIiB5Mj0iMTIiPjwvbGluZT48L3N2Zz4=" alt="Subnest Logo">
+                    Subnest
+                </div>
+                <div class="nav-links">
+                    <a href="#features">Özellikler</a>
+                    <a href="#platforms">Platformlar</a>
+                    <a href="#pricing">Fiyatlandırma</a>
+                    <a href="#contact">İletişim</a>
+                </div>
+                <div>
+                    <a href="#login" class="btn btn-outline">Giriş Yap</a>
+                    <a href="#register" class="btn btn-primary">Kayıt Ol</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Aboneliklerinizi ve Faturalarınızı Tek Yerden Yönetin</h1>
+                    <p>Subnest ile tüm dijital ve fiziksel aboneliklerinizi takip edin, faturalarınızı yönetin ve tasarruf fırsatlarını keşfedin. iOS, Android, Windows, Linux ve web tarayıcıları üzerinden erişim sağlayın.</p>
+                    <a href="#register" class="btn btn-primary">Hemen Başlayın</a>
+                    <a href="#demo" class="btn btn-outline">Demo İzleyin</a>
+                </div>
+                <div class="hero-image">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI2YxZjVmOSIvPjxyZWN0IHg9IjEwMCIgeT0iMTAwIiB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgcng9IjIwIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiNlMmU4ZjAiIHN0cm9rZS13aWR0aD0iMiIvPjxyZWN0IHg9IjE1MCIgeT0iMTUwIiB3aWR0aD0iMjUwIiBoZWlnaHQ9IjEwMCIgcng9IjEwIiBmaWxsPSIjM2I4MmY2IiBvcGFjaXR5PSIwLjIiLz48cmVjdCB4PSIxNTAiIHk9IjI4MCIgd2lkdGg9IjI1MCIgaGVpZ2h0PSIxNzAiIHJ4PSIxMCIgZmlsbD0iIzNiODJmNiIgb3BhY2l0eT0iMC4xIi8+PGNpcmNsZSBjeD0iNTUwIiBjeT0iMjAwIiByPSIxMDAiIGZpbGw9IiMzYjgyZjYiIG9wYWNpdHk9IjAuMiIvPjxyZWN0IHg9IjQ1MCIgeT0iMzMwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEyMCIgcng9IjEwIiBmaWxsPSIjM2I4MmY2IiBvcGFjaXR5PSIwLjEiLz48L3N2Zz4=" alt="Subnest Dashboard">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Subnest'in Özellikleri</h2>
+                <p>Aboneliklerinizi ve faturalarınızı yönetmenin en kolay yolu</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Abonelik Takibi</h3>
+                    <p>Tüm dijital ve fiziksel aboneliklerinizi tek bir yerden takip edin. Yenileme tarihleri, fiyatlar ve abonelik detaylarını kolayca görüntüleyin.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Fatura Yönetimi</h3>
+                    <p>Düzenli ve tek seferlik faturalarınızı takip edin. Ödeme tarihlerini kaçırmayın ve geçmiş ödemelerinizi görüntüleyin.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Bütçe Planlama</h3>
+                    <p>Kategori bazlı bütçeler oluşturun ve harcamalarınızı izleyin. Aylık abonelik maliyetlerinizi kontrol altında tutun.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Akıllı Bildirimler</h3>
+                    <p>Yaklaşan ödemeler, fiyat değişiklikleri ve bütçe aşımları için hatırlatmalar alın. Hiçbir ödemeyi kaçırmayın.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Yapay Zeka Önerileri</h3>
+                    <p>Tasarruf fırsatları ve abonelik optimizasyonu için kişiselleştirilmiş öneriler alın. Harcamalarınızı optimize edin.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Detaylı Raporlar</h3>
+                    <p>Harcama trendlerinizi analiz edin ve aboneliklerinizin zaman içindeki değişimini görüntüleyin. Finansal kararlarınızı verilerle destekleyin.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="platforms" id="platforms">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tüm Platformlarda Erişim</h2>
+                <p>Subnest'e istediğiniz cihazdan erişin ve verilerinizi senkronize edin</p>
+            </div>
+            <div class="platforms-grid">
+                <div class="platform-card">
+                    <div class="platform-icon">📱</div>
+                    <h3>iOS</h3>
+                    <p>iPhone ve iPad için optimize edilmiş mobil uygulama</p>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-icon">🤖</div>
+                    <h3>Android</h3>
+                    <p>Android telefonlar ve tabletler için mobil uygulama</p>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-icon">🖥️</div>
+                    <h3>Windows</h3>
+                    <p>Windows 10 ve 11 için masaüstü uygulaması</p>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-icon">🐧</div>
+                    <h3>Linux</h3>
+                    <p>Ubuntu, Fedora ve diğer Linux dağıtımları için uygulama</p>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-icon">🌐</div>
+                    <h3>Web</h3>
+                    <p>Tüm modern web tarayıcıları üzerinden erişim</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Finansal Kontrolü Elinize Alın</h2>
+            <p>Subnest ile aboneliklerinizi ve faturalarınızı yönetmeye bugün başlayın. Ücretsiz hesap oluşturun ve tasarruf etmeye başlayın.</p>
+            <a href="#register" class="btn btn-light">Ücretsiz Hesap Oluşturun</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">Subnest</div>
+                    <p>Abonelik ve fatura yönetimini kolaylaştıran çapraz platform uygulaması.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Ürün</h3>
+                    <ul>
+                        <li><a href="#features">Özellikler</a></li>
+                        <li><a href="#pricing">Fiyatlandırma</a></li>
+                        <li><a href="#platforms">Platformlar</a></li>
+                        <li><a href="#roadmap">Yol Haritası</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Şirket</h3>
+                    <ul>
+                        <li><a href="#about">Hakkımızda</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#careers">Kariyer</a></li>
+                        <li><a href="#contact">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Destek</h3>
+                    <ul>
+                        <li><a href="#help">Yardım Merkezi</a></li>
+                        <li><a href="#docs">Dokümantasyon</a></li>
+                        <li><a href="#status">Durum</a></li>
+                        <li><a href="#faq">SSS</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Yasal</h3>
+                    <ul>
+                        <li><a href="#terms">Kullanım Koşulları</a></li>
+                        <li><a href="#privacy">Gizlilik Politikası</a></li>
+                        <li><a href="#cookies">Çerez Politikası</a></li>
+                        <li><a href="#gdpr">KVKK</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Subnest. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
